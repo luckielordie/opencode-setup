@@ -1,0 +1,78 @@
+#!/usr/bin/env node
+
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const SKILL_PATH = path.join(__dirname, 'SKILL.md');
+const PROJECT_PATH = process.env.MEV_BOT_PATH || path.join(process.env.HOME, 'Projects/MEVbots/ScavengerMEVbot');
+
+const commands = {
+  skill: () => {
+    console.log(fs.readFileSync(SKILL_PATH, 'utf-8'));
+  },
+  
+  run: (args) => {
+    const mode = args[0] || '--searcher-only';
+    console.log(`Running MEV bot in ${mode} mode...`);
+    execSync(`cargo run --release -- ${mode}`, { 
+      cwd: PROJECT_PATH, 
+      stdio: 'inherit' 
+    });
+  },
+  
+  test: () => {
+    console.log('Running tests...');
+    execSync('cargo test', { 
+      cwd: PROJECT_PATH, 
+      stdio: 'inherit' 
+    });
+  },
+  
+  build: () => {
+    console.log('Building release binary...');
+    execSync('cargo build --release', { 
+      cwd: PROJECT_PATH, 
+      stdio: 'inherit' 
+    });
+  },
+  
+  help: () => {
+    console.log(`
+MEV Solana Bot CLI
+
+Commands:
+  skill          Show the skill documentation
+  run [mode]     Run the bot (default: --searcher-only)
+                  Modes: --searcher-only, --execute
+  test           Run cargo test
+  build          Build release binary
+  help           Show this help
+
+Environment:
+  MEV_BOT_PATH   Path to MEV bot project (default: ~/Projects/MEVbots/ScavengerMEVbot)
+
+Examples:
+  mev-solana-bot skill
+  mev-solana-bot run --searcher-only
+  mev-solana-bot run --execute
+  mev-solana-bot test
+`);
+  }
+};
+
+const [,, command, ...args] = process.argv;
+
+if (!command || command === 'help') {
+  commands.help();
+} else if (commands[command]) {
+  commands[command](args);
+} else {
+  console.error(`Unknown command: ${command}`);
+  commands.help();
+  process.exit(1);
+}

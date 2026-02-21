@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@ai-sdk/openai-compatible": "^2.0.30",
+    "@franlol/opencode-md-table-formatter": "0.0.3",
+    "@opencode-ai/plugin": "0.0.0-feature/markdown-renderer-202602141312"
+  }
+}

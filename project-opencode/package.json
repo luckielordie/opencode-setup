@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@opencode-ai/plugin": "0.0.0-feature/markdown-renderer-202602141312"
+  }
+}
