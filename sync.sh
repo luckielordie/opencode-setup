@@ -24,7 +24,7 @@ sync_pull() {
       rm -rf "$dest"/*
       mkdir -p "$dest"
       # Use find to copy, excluding certain dirs
-      (cd "$src" && find . -maxdepth 1 ! -name '.' ! -name 'node_modules' ! -name 'target' ! -name '.git' -exec cp -r {} "$dest/" \;)
+      (cd "$src" && find . -maxdepth 1 ! -name '.' ! -name 'node_modules' ! -name 'target' ! -name '.git' ! -name 'bin' -exec cp -r {} "$dest/" \;)
       # Clean up lockfiles
       rm -f "$dest/bun.lock" "$dest/package-lock.json" 2>/dev/null || true
     fi
