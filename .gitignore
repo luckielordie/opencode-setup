@@ -1,8 +1,42 @@
-# Don't commit these back
+# Dependencies
 node_modules/
-target/
-bun.lock
 package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
-# Large binaries (reinstall via npm/bun instead)
-user-opencode/bin/
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Allow skill folders
+!skills/*/
