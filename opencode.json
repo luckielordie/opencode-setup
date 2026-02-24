@@ -11,7 +11,23 @@
     "skills/mev-bot-development/SKILL.md",
     "skills/mev-solana-bot/SKILL.md",
     "skills/hacker/SKILL.md",
-    "skills/hack-scope/SKILL.md"
+    "skills/hack-scope/SKILL.md",
+    "skills/context7-base-code-review/SKILL.md",
+    "skills/planning-with-files/SKILL.md",
+    "skills/humanizer/SKILL.md",
+    "skills/browser-automation-agent/SKILL.md",
+    "skills/api-design/SKILL.md",
+    "skills/backend-patterns/SKILL.md",
+    "skills/frontend-patterns/SKILL.md",
+    "skills/deployment-patterns/SKILL.md",
+    "skills/docker-patterns/SKILL.md",
+    "skills/database-migrations/SKILL.md",
+    "skills/e2e-testing/SKILL.md",
+    "skills/continuous-learning/SKILL.md",
+    "skills/continuous-learning-v2/SKILL.md",
+    "skills/eval-harness/SKILL.md",
+    "skills/verification-loop/SKILL.md",
+    "skills/strategic-compact/SKILL.md"
   ],
   "plugin": [
     "./plugins"
@@ -171,6 +187,17 @@
         "bash": true
       }
     },
+    "python-reviewer": {
+      "description": "Expert Python code reviewer specializing in idiomatic Python, type hints, async patterns, and performance optimization.",
+      "mode": "subagent",
+      "prompt": "{file:prompts/agents/python-reviewer.md}",
+      "tools": {
+        "read": true,
+        "bash": true,
+        "write": false,
+        "edit": false
+      }
+    },
     "rust-reviewer": {
       "description": "Expert Rust code reviewer for idiomatic patterns, ownership, lifetimes, and memory safety.",
       "mode": "subagent",
@@ -259,19 +286,27 @@
     },
     "learn": {
       "description": "Extract patterns and learnings from session",
-      "template": "{file:commands/learn.md}\n\n$ARGUMENTS"
+      "template": "{file:commands/learn.md}\n\n$ARGUMENTS",
+      "agent": "build",
+      "subtask": true
     },
     "checkpoint": {
       "description": "Save verification state and progress",
-      "template": "{file:commands/checkpoint.md}\n\n$ARGUMENTS"
+      "template": "{file:commands/checkpoint.md}\n\n$ARGUMENTS",
+      "agent": "doc-updater",
+      "subtask": true
     },
     "verify": {
       "description": "Run verification loop",
-      "template": "{file:commands/verify.md}\n\n$ARGUMENTS"
+      "template": "{file:commands/verify.md}\n\n$ARGUMENTS",
+      "agent": "security-reviewer",
+      "subtask": true
     },
     "eval": {
       "description": "Run evaluation against criteria",
-      "template": "{file:commands/eval.md}\n\n$ARGUMENTS"
+      "template": "{file:commands/eval.md}\n\n$ARGUMENTS",
+      "agent": "security-reviewer",
+      "subtask": true
     },
     "update-docs": {
       "description": "Update documentation",
@@ -293,7 +328,9 @@
     },
     "setup-pm": {
       "description": "Configure package manager",
-      "template": "{file:commands/setup-pm.md}\n\n$ARGUMENTS"
+      "template": "{file:commands/setup-pm.md}\n\n$ARGUMENTS",
+      "agent": "build",
+      "subtask": true
     },
     "go-review": {
       "description": "Go code review",
@@ -315,23 +352,33 @@
     },
     "skill-create": {
       "description": "Generate skills from git history",
-      "template": "{file:commands/skill-create.md}\n\n$ARGUMENTS"
+      "template": "{file:commands/skill-create.md}\n\n$ARGUMENTS",
+      "agent": "build",
+      "subtask": true
     },
     "instinct-status": {
       "description": "View learned instincts",
-      "template": "{file:commands/instinct-status.md}\n\n$ARGUMENTS"
+      "template": "{file:commands/instinct-status.md}\n\n$ARGUMENTS",
+      "agent": "build",
+      "subtask": true
     },
     "instinct-import": {
       "description": "Import instincts",
-      "template": "{file:commands/instinct-import.md}\n\n$ARGUMENTS"
+      "template": "{file:commands/instinct-import.md}\n\n$ARGUMENTS",
+      "agent": "build",
+      "subtask": true
     },
     "instinct-export": {
       "description": "Export instincts",
-      "template": "{file:commands/instinct-export.md}\n\n$ARGUMENTS"
+      "template": "{file:commands/instinct-export.md}\n\n$ARGUMENTS",
+      "agent": "build",
+      "subtask": true
     },
     "evolve": {
       "description": "Cluster instincts into skills",
-      "template": "{file:commands/evolve.md}\n\n$ARGUMENTS"
+      "template": "{file:commands/evolve.md}\n\n$ARGUMENTS",
+      "agent": "build",
+      "subtask": true
     },
     "rust-review": {
       "description": "Review Rust code for idiomatic patterns",
@@ -347,7 +394,9 @@
     },
     "mev-bot": {
       "description": "MEV bot development patterns from TheBigSandwich project",
-      "template": "{file:commands/mev-bot.md}\n\n$ARGUMENTS"
+      "template": "{file:commands/mev-bot.md}\n\n$ARGUMENTS",
+      "agent": "build",
+      "subtask": true
     }
   },
   "permission": {
