@@ -11,10 +11,20 @@
     "skills/mev-bot-development/SKILL.md",
     "skills/mev-solana-bot/SKILL.md",
     "skills/hacker/SKILL.md",
-    "skills/hack-scope/SKILL.md"
+    "skills/hack-scope/SKILL.md",
+    "skills/context7-base-code-review/SKILL.md",
+    "skills/context7-tdd/SKILL.md",
+    "skills/brainstorming/SKILL.md"
   ],
   "plugin": [
-    "./plugins"
+    "@howaboua/opencode-usage-plugin@latest",
+    "opencode-skills",
+    "opencode-pty",
+    "micode",
+    "@franlol/opencode-md-table-formatter@0.0.3",
+    "@tarquinen/opencode-dcp@latest",
+    "@plannotator/opencode",
+    "opencode-devcontainers"
   ],
   "agent": {
     "build": {
@@ -352,5 +362,12 @@
   },
   "permission": {
     "mcp_*": "ask"
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    }
   }
 }
