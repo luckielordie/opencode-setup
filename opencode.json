@@ -5,6 +5,8 @@
   "default_agent": "build",
   "instructions": [
     "instructions/INSTRUCTIONS.md",
+    "skills/context7-driven-development/SKILL.md",
+    "skills/context7-base-code-review/SKILL.md",
     "skills/tdd-workflow/SKILL.md",
     "skills/security-review/SKILL.md",
     "skills/coding-standards/SKILL.md",
@@ -12,7 +14,6 @@
     "skills/mev-solana-bot/SKILL.md",
     "skills/hacker/SKILL.md",
     "skills/hack-scope/SKILL.md",
-    "skills/context7-base-code-review/SKILL.md",
     "skills/planning-with-files/SKILL.md",
     "skills/humanizer/SKILL.md",
     "skills/browser-automation-agent/SKILL.md",
