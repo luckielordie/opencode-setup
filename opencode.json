@@ -14,7 +14,8 @@
     "skills/hack-scope/SKILL.md",
     "skills/context7-base-code-review/SKILL.md",
     "skills/context7-tdd/SKILL.md",
-    "skills/brainstorming/SKILL.md"
+    "skills/brainstorming/SKILL.md",
+    "skills/humanizer/SKILL.md"
   ],
   "plugin": [
     "@howaboua/opencode-usage-plugin@latest",
