@@ -15,8 +15,7 @@
     "skills/context7-base-code-review/SKILL.md",
     "skills/context7-tdd/SKILL.md",
     "skills/brainstorming/SKILL.md",
-    "skills/humanizer/SKILL.md",
-    "skills/visual-explainer/SKILL.md"
+    "skills/humanizer/SKILL.md"
   ],
   "plugin": [
     "@howaboua/opencode-usage-plugin@latest",
@@ -26,7 +25,7 @@
     "@franlol/opencode-md-table-formatter@0.0.3",
     "@tarquinen/opencode-dcp@latest",
     "@plannotator/opencode",
-    "opencode-devcontainers"
+    "opencode-devcontainers",
   ],
   "agent": {
     "build": {
@@ -43,7 +42,8 @@
     "planner": {
       "description": "Expert planning specialist for complex features and refactoring. Use for implementation planning, architectural changes, or complex refactoring.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "kimi/kimi-k2.5",
+      "thinking": "-",
       "prompt": "{file:prompts/agents/planner.txt}",
       "tools": {
         "read": true,
@@ -55,7 +55,8 @@
     "architect": {
       "description": "Software architecture specialist for system design, scalability, and technical decision-making.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "kimi/kimi-k2.5",
+      "thinking": "-",
       "prompt": "{file:prompts/agents/architect.txt}",
       "tools": {
         "read": true,
@@ -67,7 +68,8 @@
     "code-reviewer": {
       "description": "Expert code review specialist. Reviews code for quality, security, and maintainability. Use immediately after writing or modifying code.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "openai/gpt-5.4",
+      "thinking": "high",
       "prompt": "{file:prompts/agents/code-reviewer.txt}",
       "tools": {
         "read": true,
@@ -79,7 +81,8 @@
     "security-reviewer": {
       "description": "Security vulnerability detection and remediation specialist. Use after writing code that handles user input, authentication, API endpoints, or sensitive data.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "openai/gpt-5.4",
+      "thinking": "xhigh",
       "prompt": "{file:prompts/agents/security-reviewer.txt}",
       "tools": {
         "read": true,
@@ -91,7 +94,8 @@
     "tdd-guide": {
       "description": "Test-Driven Development specialist enforcing write-tests-first methodology. Use when writing new features, fixing bugs, or refactoring code. Ensures 80%+ test coverage.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "openai/gpt-5.3-codex",
+      "thinking": "medium",
       "prompt": "{file:prompts/agents/tdd-guide.txt}",
       "tools": {
         "read": true,
@@ -103,7 +107,8 @@
     "build-error-resolver": {
       "description": "Build and TypeScript error resolution specialist. Use when build fails or type errors occur. Fixes build/type errors only with minimal diffs.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "openai/gpt-5.3-codex-spark",
+      "thinking": "low",
       "prompt": "{file:prompts/agents/build-error-resolver.txt}",
       "tools": {
         "read": true,
@@ -115,7 +120,8 @@
     "e2e-runner": {
       "description": "End-to-end testing specialist using Playwright. Generates, maintains, and runs E2E tests for critical user flows.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "openai/gpt-5.3-codex",
+      "thinking": "low",
       "prompt": "{file:prompts/agents/e2e-runner.txt}",
       "tools": {
         "read": true,
@@ -127,7 +133,8 @@
     "doc-updater": {
       "description": "Documentation and codemap specialist. Use for updating codemaps and documentation.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "openai/gpt-5.4",
+      "thinking": "low",
       "prompt": "{file:prompts/agents/doc-updater.txt}",
       "tools": {
         "read": true,
@@ -139,7 +146,8 @@
     "refactor-cleaner": {
       "description": "Dead code cleanup and consolidation specialist. Use for removing unused code, duplicates, and refactoring.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "kilocode/minimax/minimax-m2.5-free",
+      "thinking": "-",
       "prompt": "{file:prompts/agents/refactor-cleaner.txt}",
       "tools": {
         "read": true,
@@ -151,7 +159,8 @@
     "go-reviewer": {
       "description": "Expert Go code reviewer specializing in idiomatic Go, concurrency patterns, error handling, and performance.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "openai/gpt-5.4",
+      "thinking": "medium",
       "prompt": "{file:prompts/agents/go-reviewer.txt}",
       "tools": {
         "read": true,
@@ -163,7 +172,8 @@
     "go-build-resolver": {
       "description": "Go build, vet, and compilation error resolution specialist. Fixes Go build errors with minimal changes.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "openai/gpt-5.3-codex-spark",
+      "thinking": "low",
       "prompt": "{file:prompts/agents/go-build-resolver.txt}",
       "tools": {
         "read": true,
@@ -175,6 +185,8 @@
 "database-reviewer": {
       "description": "PostgreSQL database specialist for query optimization, schema design, security, and performance. Incorporates Supabase best practices.",
       "mode": "subagent",
+      "model": "openai/gpt-5.4",
+      "thinking": "medium",
       "prompt": "{file:prompts/agents/database-reviewer.txt}",
       "tools": {
         "read": true,
@@ -186,6 +198,8 @@
     "rust-reviewer": {
       "description": "Expert Rust code reviewer for idiomatic patterns, ownership, lifetimes, and memory safety.",
       "mode": "subagent",
+      "model": "openai/gpt-5.4",
+      "thinking": "high",
       "prompt": "{file:prompts/agents/rust-reviewer.txt}",
       "tools": {
         "read": true,
@@ -197,7 +211,8 @@
     "rust-clippy-fmt-check-tester": {
       "description": "Rust build, clippy, fmt, and test error resolution specialist.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "openai/gpt-5.3-codex-spark",
+      "thinking": "low",
       "prompt": "{file:prompts/agents/rust-clippy-fmt-check-tester.txt}",
       "tools": {
         "read": true,
@@ -209,7 +224,7 @@
     "context7-sdk-compliance": {
       "description": "SDK compliance reviewer that validates code against Context7 documentation. Identifies deprecated APIs, non-optimal patterns, and security issues.",
       "mode": "subagent",
-      "model": "opencode/minimax-m2.5-free",
+      "model": "opencode/kimi-k2.5",
       "prompt": "{file:prompts/agents/context7-sdk-compliance.md}",
       "tools": {
         "read": true,
@@ -365,15 +380,60 @@
   "permission": {
     "mcp_*": "ask"
   },
+  "provider": {
+    "kilocode": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Kilocode",
+      "options": {
+        "baseURL": "https://api.kilocode.ai/v1"
+      },
+      "models": {
+        "minimax-m2.5:free": {
+          "name": "MiniMax M2.5 Free",
+          "limit": {
+            "context": 1000000,
+            "output": 8000
+          }
+        }
+      }
+    },
+    "modal": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Modal GLM-5",
+      "options": {
+        "baseURL": "https://api.us-west-2.modal.direct/v1"
+      },
+      "models": {
+        "zai-org/GLM-5-FP8": {
+          "name": "GLM-5",
+          "limit": {
+            "context": 200000,
+            "output": 128000
+          }
+        }
+      }
+    },
+    "openrouter": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "OpenRouter",
+      "options": {
+        "baseURL": "https://openrouter.ai/api/v1"
+      },
+      "models": {
+        "step-3.5-flash:free": {
+          "name": "Step 3.5 Flash Free",
+          "limit": {
+            "context": 256000,
+            "output": 16000
+          }
+        }
+      }
+    }
+  },
   "mcp": {
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",
-      "enabled": true
-    },
-    "jcodemunch": {
-      "type": "local",
-      "command": ["uvx", "jcodemunch-mcp"],
       "enabled": true
     }
   }
