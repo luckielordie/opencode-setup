@@ -74,27 +74,8 @@ Notice explorer and refactor-cleaner start with free models—that's intentional
 Drop these into your OpenCode config:
 
 ```bash
-cp opencode.json ~/.config/opencode/
-cp oh-my-opencode-slim.json ~/.config/opencode/
+git clone git@github.com:luckielordie/opencode-setup.git ~/.config/opencode/
 ```
 
 Then add your API keys to `~/.local/share/opencode/auth.json`:
 
-```json
-{
-  "kilo": { "type": "api", "key": "your-kilo-key" },
-  "cline": { "type": "api", "key": "your-cline-key" },
-  "openai": { "type": "api", "key": "your-openai-key" },
-  "modal": { "type": "api", "key": "your-modal-key" },
-  "kimi": { "type": "api", "key": "your-kimi-key" },
-  "openrouter": { "type": "api", "key": "your-openrouter-key" }
-}
-```
-
-### Getting Free API Keys
-
-- **Kilo**: Comes through OpenCode's gateway—no separate signup
-- **Cline**: Grab one at https://app.cline.bot
-- **OpenRouter**: https://openrouter.ai (hunter-alpha and healer-alpha don't cost anything)
-
-The paid ones (OpenAI, Modal, Kimi) need their own subscriptions.

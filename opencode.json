@@ -10,33 +10,13 @@
       "type": "remote",
       "url": "https://mcp.exa.ai/mcp",
       "enabled": true
-    },
-    "jcodemunch": {
-      "type": "local",
-      "command": [
-        "uvx",
-        "jcodemunch-mcp"
-      ],
-      "enabled": true
     }
   },
-  "plugin": [
-    "opencode-skills",
-    "opencode-pty",
-    "micode",
-    "@tarquinen/opencode-dcp@latest",
-    "@plannotator/opencode",
-    "opencode-devcontainers",
-    "oh-my-opencode-slim",
-    "opencode-antigravity-auth@latest",
-    "rtk"
-  ],
   "agent": {
     "planner": {
       "description": "Expert planning specialist for complex features and refactoring. Use for implementation planning, architectural changes, or complex refactoring.",
-      "model": "openrouter/hunter-alpha",
       "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/planner.txt}",
+      "prompt": "{file:./prompts/agents/planner.txt}",
       "tools": {
         "read": true,
         "bash": true,
@@ -45,78 +25,31 @@
       }
     },
     "architect": {
-      "description": "Software architecture specialist for system design, scalability, and technical decision-making. 744B parameters, 200K context, SOTA on SWE-bench.",
-      "model": "modal/zai-org/GLM-5-FP8",
+      "description": "Software architecture specialist for system design, scalability, and technical decision-making.",
       "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/architect.txt}",
+      "prompt": "{file:./prompts/agents/architect.txt}",
       "tools": {
         "read": true,
         "bash": true,
         "write": false,
         "edit": false
       }
-    },
-    "brainstormer": {
-      "model": "openrouter/healer-alpha"
     },
     "code-reviewer": {
       "description": "Expert code review specialist. Reviews code for quality, security, and maintainability. Use immediately after writing or modifying code.",
-      "model": "openai/gpt-5.4",
-      "thinking": "high",
       "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/code-reviewer.txt}",
+      "prompt": "{file:./prompts/agents/code-reviewer.txt}",
       "tools": {
         "read": true,
         "bash": true,
         "write": false,
         "edit": false
-      }
-    },
-    "security-reviewer": {
-      "description": "Security vulnerability detection and remediation specialist. Use after writing code that handles user input, authentication, API endpoints, or sensitive data.",
-      "model": "openai/gpt-5.4",
-      "thinking": "high",
-      "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/security-reviewer.txt}",
-      "tools": {
-        "read": true,
-        "bash": true,
-        "write": true,
-        "edit": true
       }
     },
     "tdd-guide": {
       "description": "Test-Driven Development specialist enforcing write-tests-first methodology. Use when writing new features, fixing bugs, or refactoring code. Ensures 80%+ test coverage.",
-      "model": "openai/gpt-5.3-codex",
-      "thinking": "medium",
       "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/tdd-guide.txt}",
-      "tools": {
-        "read": true,
-        "write": true,
-        "edit": true,
-        "bash": true
-      }
-    },
-    "build-error-resolver": {
-      "description": "Build and TypeScript error resolution specialist. Use when build fails or type errors occur. Fixes build/type errors only with minimal diffs.",
-      "model": "openai/gpt-5.3-codex-spark",
-      "thinking": "low",
-      "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/build-error-resolver.txt}",
-      "tools": {
-        "read": true,
-        "write": true,
-        "edit": true,
-        "bash": true
-      }
-    },
-    "e2e-runner": {
-      "description": "End-to-end testing specialist using Playwright. Generates, maintains, and runs E2E tests for critical user flows.",
-      "model": "openai/gpt-5.3-codex",
-      "thinking": "low",
-      "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/e2e-runner.txt}",
+      "prompt": "{file:./prompts/agents/tdd-guide.txt}",
       "tools": {
         "read": true,
         "write": true,
@@ -126,22 +59,8 @@
     },
     "doc-updater": {
       "description": "Documentation and codemap specialist. Use for updating codemaps and documentation.",
-      "model": "openai/gpt-5.4",
-      "thinking": "low",
       "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/doc-updater.txt}",
-      "tools": {
-        "read": true,
-        "write": true,
-        "edit": true,
-        "bash": true
-      }
-    },
-    "refactor-cleaner": {
-      "description": "Dead code cleanup and consolidation specialist. Use for removing unused code, duplicates, and refactoring.",
-      "model": "kilo/minimax-m2.5-free",
-      "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/refactor-cleaner.txt}",
+      "prompt": "{file:./prompts/agents/doc-updater.txt}",
       "tools": {
         "read": true,
         "write": true,
@@ -151,10 +70,8 @@
     },
     "go-reviewer": {
       "description": "Expert Go code reviewer specializing in idiomatic Go, concurrency patterns, error handling, and performance.",
-      "model": "openai/gpt-5.4",
-      "thinking": "medium",
       "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/go-reviewer.txt}",
+      "prompt": "{file:./prompts/agents/go-reviewer.txt}",
       "tools": {
         "read": true,
         "bash": true,
@@ -164,10 +81,8 @@
     },
     "go-build-resolver": {
       "description": "Go build, vet, and compilation error resolution specialist. Fixes Go build errors with minimal changes.",
-      "model": "openai/gpt-5.3-codex-spark",
-      "thinking": "low",
       "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/go-build-resolver.txt}",
+      "prompt": "{file:./prompts/agents/go-build-resolver.txt}",
       "tools": {
         "read": true,
         "write": true,
@@ -177,42 +92,15 @@
     },
     "database-reviewer": {
       "description": "PostgreSQL database specialist for query optimization, schema design, security, and performance. Incorporates Supabase best practices.",
-      "model": "openai/gpt-5.4",
-      "thinking": "medium",
       "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/database-reviewer.txt}",
+      "prompt": "{file:./prompts/agents/database-reviewer.txt}",
       "tools": {
         "read": true,
         "write": true,
         "edit": true,
         "bash": true
       }
-    },
-    "rust-reviewer": {
-      "description": "Expert Rust code reviewer for idiomatic patterns, ownership, lifetimes, and memory safety.",
-      "model": "openai/gpt-5.4",
-      "thinking": "high",
-      "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/rust-reviewer.txt}",
-      "tools": {
-        "read": true,
-        "bash": true,
-        "write": false,
-        "edit": false
-      }
-    },
-    "rust-clippy-fmt-check-tester": {
-      "description": "Rust build, clippy, fmt, and test error resolution specialist.",
-      "model": "openai/gpt-5.3-codex-spark",
-      "thinking": "low",
-      "mode": "subagent",
-      "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/rust-clippy-fmt-check-tester.txt}",
-      "tools": {
-        "read": true,
-        "bash": true,
-        "write": true,
-        "edit": true
-      }
+    }
     },
     "explore": {
       "disable": true
@@ -224,468 +112,34 @@
   "command": {
     "plan": {
       "description": "Create a detailed implementation plan for complex features",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/plan.md}\n\n$ARGUMENTS",
+      "template": "{file:./commands/plan.md}\n\n$ARGUMENTS",
       "agent": "planner",
       "subtask": true
-    },
-    "tdd": {
-      "description": "Enforce TDD workflow with 80%+ test coverage",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/tdd.md}\n\n$ARGUMENTS",
-      "agent": "tdd-guide",
-      "subtask": true
-    },
-    "code-review": {
-      "description": "Review code for quality, security, and maintainability",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/code-review.md}\n\n$ARGUMENTS",
-      "agent": "code-reviewer",
-      "subtask": true
-    },
-    "security": {
-      "description": "Run comprehensive security review",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/security.md}\n\n$ARGUMENTS",
-      "agent": "security-reviewer",
-      "subtask": true
-    },
-    "build-fix": {
-      "description": "Fix build and TypeScript errors with minimal changes",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/build-fix.md}\n\n$ARGUMENTS",
-      "agent": "build-error-resolver",
-      "subtask": true
-    },
-    "e2e": {
-      "description": "Generate and run E2E tests with Playwright",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/e2e.md}\n\n$ARGUMENTS",
-      "agent": "e2e-runner",
-      "subtask": true
-    },
-    "refactor-clean": {
-      "description": "Remove dead code and consolidate duplicates",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/refactor-clean.md}\n\n$ARGUMENTS",
-      "agent": "refactor-cleaner",
-      "subtask": true
-    },
-    "orchestrate": {
-      "description": "Orchestrate multiple agents for complex tasks",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/orchestrate.md}\n\n$ARGUMENTS",
-      "agent": "planner",
-      "subtask": true
-    },
-    "learn": {
-      "description": "Extract patterns and learnings from session",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/learn.md}\n\n$ARGUMENTS"
-    },
-    "checkpoint": {
-      "description": "Save verification state and progress",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/checkpoint.md}\n\n$ARGUMENTS"
-    },
-    "verify": {
-      "description": "Run verification loop",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/verify.md}\n\n$ARGUMENTS"
-    },
-    "eval": {
-      "description": "Run evaluation against criteria",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/eval.md}\n\n$ARGUMENTS"
-    },
-    "update-docs": {
-      "description": "Update documentation",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/update-docs.md}\n\n$ARGUMENTS",
-      "agent": "doc-updater",
-      "subtask": true
-    },
-    "update-codemaps": {
-      "description": "Update codemaps",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/update-codemaps.md}\n\n$ARGUMENTS",
-      "agent": "doc-updater",
-      "subtask": true
-    },
-    "test-coverage": {
-      "description": "Analyze test coverage",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/test-coverage.md}\n\n$ARGUMENTS",
-      "agent": "tdd-guide",
-      "subtask": true
-    },
-    "setup-pm": {
-      "description": "Configure package manager",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/setup-pm.md}\n\n$ARGUMENTS"
     },
     "go-review": {
       "description": "Go code review",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/go-review.md}\n\n$ARGUMENTS",
+      "template": "{file:./commands/go-review.md}\n\n$ARGUMENTS",
       "agent": "go-reviewer",
       "subtask": true
     },
     "go-test": {
       "description": "Go TDD workflow",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/go-test.md}\n\n$ARGUMENTS",
+      "template": "{file:./commands/go-test.md}\n\n$ARGUMENTS",
       "agent": "tdd-guide",
       "subtask": true
     },
     "go-build": {
       "description": "Fix Go build errors",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/go-build.md}\n\n$ARGUMENTS",
+      "template": "{file:./commands/go-build.md}\n\n$ARGUMENTS",
       "agent": "go-build-resolver",
-      "subtask": true
-    },
-    "skill-create": {
-      "description": "Generate skills from git history",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/skill-create.md}\n\n$ARGUMENTS"
-    },
-    "instinct-status": {
-      "description": "View learned instincts",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/instinct-status.md}\n\n$ARGUMENTS"
-    },
-    "instinct-import": {
-      "description": "Import instincts",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/instinct-import.md}\n\n$ARGUMENTS"
-    },
-    "instinct-export": {
-      "description": "Export instincts",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/instinct-export.md}\n\n$ARGUMENTS"
-    },
-    "evolve": {
-      "description": "Cluster instincts into skills",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/evolve.md}\n\n$ARGUMENTS"
-    },
-    "rust-review": {
-      "description": "Review Rust code for idiomatic patterns",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/rust-review.md}\n\n$ARGUMENTS",
-      "agent": "rust-reviewer",
-      "subtask": true
-    },
-    "rust-clippy-fmt-check": {
-      "description": "Fix Rust clippy, fmt, and test errors",
-      "template": "{file:/home/kytusdevenn/everything-claude-code/.opencode/commands/rust-clippy-fmt-check.md}\n\n$ARGUMENTS",
-      "agent": "rust-clippy-fmt-check-tester",
       "subtask": true
     }
   },
   "provider": {
-    "modal": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Modal GLM-5",
-      "options": {
-        "baseURL": "https://api.us-west-2.modal.direct/v1"
-      },
-      "models": {
-        "zai-org/GLM-5-FP8": {
-          "name": "GLM-5",
-          "limit": {
-            "context": 200000,
-            "output": 128000
-          }
-        }
-      }
-    },
-    "minimax": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "MiniMax via OpenCode Zen",
-      "options": {
-        "baseURL": "https://opencode.ai/zen/v1"
-      },
-      "models": {
-        "minimax-m2.5-free": {
-          "name": "MiniMax M2.5 Free",
-          "limit": {
-            "context": 1000000,
-            "output": 8000
-          }
-        }
-      }
-    },
-    "kilo": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "KiloCode via OpenCode",
-      "options": {
-        "baseURL": "https://opencode.ai/kilo/v1"
-      },
-      "models": {
-        "minimax-m2.5-free": {
-          "id": "minimax/minimax-m2.5",
-          "name": "MiniMax M2.5 Free",
-          "limit": {
-            "context": 1000000,
-            "output": 8000
-          }
-        }
-      }
-    },
-    "cline": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Cline",
-      "options": {
-        "baseURL": "https://api.cline.bot/api/v1"
-      },
-      "models": {
-        "minimax-m2.5-free": {
-          "id": "minimax/minimax-m2.5",
-          "name": "MiniMax M2.5 Free",
-          "limit": {
-            "context": 1000000,
-            "output": 32768
-          }
-        },
-        "kat-coder-pro-free": {
-          "id": "kwaipilot/kat-coder-pro",
-          "name": "Kwaipilot KAT Coder Pro Free",
-          "limit": {
-            "context": 32768,
-            "output": 8192
-          }
-        },
-        "glm-5-free": {
-          "id": "z-ai/glm-5",
-          "name": "GLM-5 Free",
-          "limit": {
-            "context": 128000,
-            "output": 16384
-          }
-        }
-      }
-    },
-    "nvidia": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "NVIDIA NIM",
-      "options": {
-        "baseURL": "https://integrate.api.nvidia.com/v1",
-        "apiKey": "{env:NVIDIA_API_KEY}"
-      },
-      "models": {
-        "nvidia/deepseek-ai/deepseek-v3.2": {
-          "name": "DeepSeek V3.2",
-          "limit": {
-            "context": 128000,
-            "output": 16384
-          },
-          "costPerMillionTokens": {
-            "input": 0.5,
-            "output": 1.5
-          }
-        }
-      }
-    },
-    "openai": {
-      "npm": "@ai-sdk/openai",
-      "name": "OpenAI",
-      "options": {
-        "baseURL": "https://api.openai.com/v1"
-      },
-      "models": {
-        "gpt-5.4": {
-          "name": "GPT-5.4",
-          "limit": {
-            "context": 180000,
-            "output": 16384
-          }
-        },
-        "gpt-5.3-codex": {
-          "name": "GPT-5.3 Codex",
-          "limit": {
-            "context": 180000,
-            "output": 16384
-          }
-        },
-        "gpt-5.3-codex-spark": {
-          "name": "GPT-5.3 Codex Spark",
-          "limit": {
-            "context": 180000,
-            "output": 16384
-          }
-        }
-      }
-    },
-    "openrouter": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "OpenRouter",
-      "options": {
-        "baseURL": "https://openrouter.ai/api/v1",
-        "apiKey": "{file:~/.config/opencode/openrouter.key}"
-      },
-      "models": {
-        "hunter-alpha": {
-          "name": "Hunter Alpha",
-          "limit": {
-            "context": 1050000,
-            "output": 16384
-          }
-        },
-        "healer-alpha": {
-          "name": "Healer Alpha",
-          "limit": {
-            "context": 262000,
-            "output": 16384
-          }
-        }
-      }
-    },
     "google": {
       "models": {
-        "antigravity-gemini-3.1-pro": {
-          "name": "Gemini 3.1 Pro (Antigravity)",
-          "limit": {
-            "context": 1048576,
-            "output": 65535
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "variants": {
-            "low": {
-              "thinkingLevel": "low"
-            },
-            "high": {
-              "thinkingLevel": "high"
-            }
-          }
-        },
-        "antigravity-gemini-3-flash": {
-          "name": "Gemini 3 Flash (Antigravity)",
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "variants": {
-            "minimal": {
-              "thinkingLevel": "minimal"
-            },
-            "low": {
-              "thinkingLevel": "low"
-            },
-            "medium": {
-              "thinkingLevel": "medium"
-            },
-            "high": {
-              "thinkingLevel": "high"
-            }
-          }
-        },
-        "antigravity-claude-sonnet-4-5": {
-          "name": "Claude Sonnet 4.5 (Antigravity)",
-          "limit": {
-            "context": 200000,
-            "output": 64000
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        },
-        "antigravity-claude-sonnet-4-5-thinking": {
-          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
-          "limit": {
-            "context": 200000,
-            "output": 64000
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "variants": {
-            "low": {
-              "thinkingConfig": {
-                "thinkingBudget": 8192
-              }
-            },
-            "max": {
-              "thinkingConfig": {
-                "thinkingBudget": 32768
-              }
-            }
-          }
-        },
-        "antigravity-claude-opus-4-5-thinking": {
-          "name": "Claude Opus 4.5 Thinking (Antigravity)",
-          "limit": {
-            "context": 200000,
-            "output": 64000
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "variants": {
-            "low": {
-              "thinkingConfig": {
-                "thinkingBudget": 8192
-              }
-            },
-            "max": {
-              "thinkingConfig": {
-                "thinkingBudget": 32768
-              }
-            }
-          }
-        },
-        "gemini-2.5-flash": {
-          "name": "Gemini 2.5 Flash (Gemini CLI)",
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        },
         "gemini-2.5-pro": {
           "name": "Gemini 2.5 Pro (Gemini CLI)",
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        },
-        "gemini-3-flash-preview": {
-          "name": "Gemini 3 Flash Preview (Gemini CLI)",
           "limit": {
             "context": 1048576,
             "output": 65536

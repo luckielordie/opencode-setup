@@ -134,7 +134,7 @@ See [docs/CODEMAPS/INDEX.md](docs/CODEMAPS/INDEX.md) for detailed architecture.
 
 - `src/app` - Next.js App Router pages and API routes
 - `src/components` - Reusable React components
-- `src/lib` - Utility libraries and clients
+- `pkg/` - libraries and clients
 
 ## Features
 

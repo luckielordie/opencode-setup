@@ -17,7 +17,7 @@ An interactive, step-by-step installation wizard for the Everything Claude Code 
 ## Prerequisites
 
 This skill must be accessible to Claude Code before activation. Two ways to bootstrap:
-1. **Via Plugin**: `/plugin install everything-claude-code` — the plugin loads this skill automatically
+1. **Via Plugin**: `/plugin install opencode-setup` — the plugin loads this skill automatically
 2. **Manual**: Copy only this skill to `~/.claude/skills/configure-ecc/SKILL.md`, then activate by saying "configure ecc"
 
 ---
@@ -27,11 +27,11 @@ This skill must be accessible to Claude Code before activation. Two ways to boot
 Before any installation, clone the latest ECC source to `/tmp`:
 
 ```bash
-rm -rf /tmp/everything-claude-code
-git clone https://github.com/affaan-m/everything-claude-code.git /tmp/everything-claude-code
+rm -rf /tmp/opencode-setup
+git clone https://github.com/affaan-m/opencode-setup.git /tmp/opencode-setup
 ```
 
-Set `ECC_ROOT=/tmp/everything-claude-code` as the source for all subsequent copy operations.
+Set `ECC_ROOT=/tmp/opencode-setup` as the source for all subsequent copy operations.
 
 If the clone fails (network issues, etc.), use `AskUserQuestion` to ask the user to provide a local path to an existing ECC clone.
 
@@ -252,7 +252,7 @@ Options:
 Clean up the cloned repository from `/tmp`:
 
 ```bash
-rm -rf /tmp/everything-claude-code
+rm -rf /tmp/opencode-setup
 ```
 
 Then print a summary report:
