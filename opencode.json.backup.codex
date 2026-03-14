@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "openai/gpt-5.4",
+"model": "openai/gpt-5.4",
   "mcp": {
     "context7": {
       "type": "remote",
@@ -26,15 +26,13 @@
     "micode",
     "@tarquinen/opencode-dcp@latest",
     "@plannotator/opencode",
-    "opencode-devcontainers",
-    "oh-my-opencode-slim",
-    "opencode-antigravity-auth@latest",
-    "rtk"
+    "opencode-devcontainers"
   ],
+
   "agent": {
     "planner": {
       "description": "Expert planning specialist for complex features and refactoring. Use for implementation planning, architectural changes, or complex refactoring.",
-      "model": "openrouter/hunter-alpha",
+      "model": "kimi/kimi-k2.5",
       "mode": "subagent",
       "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/planner.txt}",
       "tools": {
@@ -45,8 +43,8 @@
       }
     },
     "architect": {
-      "description": "Software architecture specialist for system design, scalability, and technical decision-making. 744B parameters, 200K context, SOTA on SWE-bench.",
-      "model": "modal/zai-org/GLM-5-FP8",
+      "description": "Software architecture specialist for system design, scalability, and technical decision-making.",
+      "model": "kimi/kimi-k2.5",
       "mode": "subagent",
       "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/architect.txt}",
       "tools": {
@@ -57,7 +55,7 @@
       }
     },
     "brainstormer": {
-      "model": "openrouter/healer-alpha"
+      "model": "openai/gpt-5.4"
     },
     "code-reviewer": {
       "description": "Expert code review specialist. Reviews code for quality, security, and maintainability. Use immediately after writing or modifying code.",
@@ -75,7 +73,7 @@
     "security-reviewer": {
       "description": "Security vulnerability detection and remediation specialist. Use after writing code that handles user input, authentication, API endpoints, or sensitive data.",
       "model": "openai/gpt-5.4",
-      "thinking": "high",
+      "thinking": "xhigh",
       "mode": "subagent",
       "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/security-reviewer.txt}",
       "tools": {
@@ -139,7 +137,7 @@
     },
     "refactor-cleaner": {
       "description": "Dead code cleanup and consolidation specialist. Use for removing unused code, duplicates, and refactoring.",
-      "model": "kilo/minimax-m2.5-free",
+      "model": "kilocode/minimax/minimax-m2.5-free",
       "mode": "subagent",
       "prompt": "{file:/home/kytusdevenn/everything-claude-code/.opencode/prompts/agents/refactor-cleaner.txt}",
       "tools": {
@@ -213,12 +211,6 @@
         "write": true,
         "edit": true
       }
-    },
-    "explore": {
-      "disable": true
-    },
-    "general": {
-      "disable": true
     }
   },
   "command": {
@@ -392,51 +384,18 @@
         }
       }
     },
-    "kilo": {
+    "kilocode": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "KiloCode via OpenCode",
+      "name": "KiloCode",
       "options": {
-        "baseURL": "https://opencode.ai/kilo/v1"
+        "baseURL": "https://api.kilo.ai/api/gateway"
       },
       "models": {
-        "minimax/minimax-m2.5-free": {
+        "minimax/minimax-m2.5:free": {
           "name": "MiniMax M2.5 Free",
           "limit": {
             "context": 1000000,
             "output": 8000
-          }
-        }
-      }
-    },
-    "cline": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Cline",
-      "options": {
-        "baseURL": "https://api.cline.bot/api/v1"
-      },
-      "models": {
-        "minimax-m2.5-free": {
-          "id": "minimax/minimax-m2.5",
-          "name": "MiniMax M2.5 Free",
-          "limit": {
-            "context": 1000000,
-            "output": 32768
-          }
-        },
-        "kat-coder-pro-free": {
-          "id": "kwaipilot/kat-coder-pro",
-          "name": "Kwaipilot KAT Coder Pro Free",
-          "limit": {
-            "context": 32768,
-            "output": 8192
-          }
-        },
-        "glm-5-free": {
-          "id": "z-ai/glm-5",
-          "name": "GLM-5 Free",
-          "limit": {
-            "context": 128000,
-            "output": 16384
           }
         }
       }
@@ -446,7 +405,7 @@
       "name": "NVIDIA NIM",
       "options": {
         "baseURL": "https://integrate.api.nvidia.com/v1",
-        "apiKey": "{env:NVIDIA_API_KEY}"
+        "apiKey": "${NVIDIA_API_KEY}"
       },
       "models": {
         "nvidia/deepseek-ai/deepseek-v3.2": {
@@ -456,8 +415,8 @@
             "output": 16384
           },
           "costPerMillionTokens": {
-            "input": 0.5,
-            "output": 1.5
+            "input": 0.50,
+            "output": 1.50
           }
         }
       }
@@ -472,249 +431,22 @@
         "gpt-5.4": {
           "name": "GPT-5.4",
           "limit": {
-            "context": 180000,
+            "context": 128000,
             "output": 16384
           }
         },
         "gpt-5.3-codex": {
           "name": "GPT-5.3 Codex",
           "limit": {
-            "context": 180000,
+            "context": 128000,
             "output": 16384
           }
         },
         "gpt-5.3-codex-spark": {
           "name": "GPT-5.3 Codex Spark",
           "limit": {
-            "context": 180000,
+            "context": 128000,
             "output": 16384
-          }
-        }
-      }
-    },
-    "openrouter": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "OpenRouter",
-      "options": {
-        "baseURL": "https://openrouter.ai/api/v1",
-        "apiKey": "{file:~/.config/opencode/openrouter.key}"
-      },
-      "models": {
-        "openrouter/hunter-alpha": {
-          "name": "Hunter Alpha",
-          "limit": {
-            "context": 1050000,
-            "output": 16384
-          }
-        },
-        "openrouter/healer-alpha": {
-          "name": "Healer Alpha",
-          "limit": {
-            "context": 262000,
-            "output": 16384
-          }
-        }
-      }
-    },
-    "google": {
-      "models": {
-        "antigravity-gemini-3.1-pro": {
-          "name": "Gemini 3.1 Pro (Antigravity)",
-          "limit": {
-            "context": 1048576,
-            "output": 65535
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "variants": {
-            "low": {
-              "thinkingLevel": "low"
-            },
-            "high": {
-              "thinkingLevel": "high"
-            }
-          }
-        },
-        "antigravity-gemini-3-flash": {
-          "name": "Gemini 3 Flash (Antigravity)",
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "variants": {
-            "minimal": {
-              "thinkingLevel": "minimal"
-            },
-            "low": {
-              "thinkingLevel": "low"
-            },
-            "medium": {
-              "thinkingLevel": "medium"
-            },
-            "high": {
-              "thinkingLevel": "high"
-            }
-          }
-        },
-        "antigravity-claude-sonnet-4-5": {
-          "name": "Claude Sonnet 4.5 (Antigravity)",
-          "limit": {
-            "context": 200000,
-            "output": 64000
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        },
-        "antigravity-claude-sonnet-4-5-thinking": {
-          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
-          "limit": {
-            "context": 200000,
-            "output": 64000
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "variants": {
-            "low": {
-              "thinkingConfig": {
-                "thinkingBudget": 8192
-              }
-            },
-            "max": {
-              "thinkingConfig": {
-                "thinkingBudget": 32768
-              }
-            }
-          }
-        },
-        "antigravity-claude-opus-4-5-thinking": {
-          "name": "Claude Opus 4.5 Thinking (Antigravity)",
-          "limit": {
-            "context": 200000,
-            "output": 64000
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "variants": {
-            "low": {
-              "thinkingConfig": {
-                "thinkingBudget": 8192
-              }
-            },
-            "max": {
-              "thinkingConfig": {
-                "thinkingBudget": 32768
-              }
-            }
-          }
-        },
-        "gemini-2.5-flash": {
-          "name": "Gemini 2.5 Flash (Gemini CLI)",
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        },
-        "gemini-2.5-pro": {
-          "name": "Gemini 2.5 Pro (Gemini CLI)",
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        },
-        "gemini-3-flash-preview": {
-          "name": "Gemini 3 Flash Preview (Gemini CLI)",
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        },
-        "gemini-3.1-pro-preview": {
-          "name": "Gemini 3.1 Pro Preview (Gemini CLI)",
-          "limit": {
-            "context": 1048576,
-            "output": 65535
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
           }
         }
       }

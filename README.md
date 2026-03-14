@@ -1,177 +1,100 @@
-# OpenCode Custom Configuration
+# My OpenCode Setup
 
-Personal OpenCode setup with curated skills, agents, and configurations.
+This is my personal OpenCode configuration—tweaked over time to get the right balance of speed, cost, and quality. It uses a mix of free models (Kilo, Cline, OpenRouter) and paid ones (OpenAI, Modal) depending on the task.
 
-## Overview
+## What's Inside
 
-This repository contains a customized OpenCode configuration combining:
-- **47 skills** from various sources (ECC, custom, and project-specific)
-- **16 agents** for specialized tasks
-- **Custom commands** and hooks
-- **Personal configurations**
+- **opencode.json** — Core agent definitions and provider configs
+- **oh-my-opencode-slim.json** — Dynamic presets with fallback chains for when models hiccup
 
-## Structure
+## The Agents
 
-```
-.
-├── commands/           # Custom OpenCode commands
-├── config/            # Configuration backups
-├── instructions/      # Base instruction files
-├── plugins/           # OpenCode plugins
-├── prompts/           # Agent prompts and system prompts
-│   └── agents/       # 16 specialized agents
-├── skills/           # 47 skills for various domains
-└── tools/            # Custom tools
-```
+### Subagents (defined in opencode.json)
 
-## Skills (47 total)
+These are the specialist agents I call for specific jobs:
 
-### Security & Testing
-- `hack-scope` - VDP scope analysis
-- `hacker` - Grayhat security testing
-- `security-review` - Security code review
-- `security-scan` - Automated security scanning
-- `tdd-workflow` - Test-driven development
-- `e2e-testing` - End-to-end testing
+| Agent | Model | What It Does |
+|-------|-------|--------------|
+| planner | hunter-alpha (OpenRouter) | Breaks down complex features into actionable steps |
+| architect | GLM-5-FP8 (Modal) | Big-picture system design and technical decisions |
+| brainstormer | healer-alpha (OpenRouter) | Creative ideation and exploring alternatives |
+| code-reviewer | GPT-5.4 | General code quality and maintainability checks |
+| security-reviewer | GPT-5.4 | Catches security issues in auth, APIs, sensitive data |
+| tdd-guide | GPT-5.3-codex | Enforces test-first development, coverage checks |
+| build-error-resolver | GPT-5.3-codex-spark | Fast fixes for build/type errors |
+| e2e-runner | GPT-5.3-codex | Playwright test generation and maintenance |
+| doc-updater | GPT-5.4 | Keeps documentation and codemaps current |
+| refactor-cleaner | MiniMax M2.5 Free (Kilo) | Removes dead code and consolidates duplicates |
+| go-reviewer | GPT-5.4 | Go-specific idioms, concurrency, performance |
+| go-build-resolver | GPT-5.3-codex-spark | Quick Go compilation fixes |
+| database-reviewer | GPT-5.4 | PostgreSQL query optimization and schema review |
+| rust-reviewer | GPT-5.4 | Rust ownership, lifetimes, safety patterns |
+| rust-clippy-fmt-check-tester | GPT-5.3-codex-spark | Rust tooling error resolution |
 
-### Development Patterns
-- `api-design` - API design patterns
-- `backend-patterns` - Backend development
-- `frontend-patterns` - Frontend development
-- `coding-standards` - Code quality standards
-- `database-migrations` - Database migration patterns
-- `deployment-patterns` - Deployment strategies
-- `docker-patterns` - Docker best practices
+### Dynamic Presets (oh-my-opencode-slim.json)
 
-### Language-Specific
-- `golang-patterns` / `golang-testing` - Go development
-- `python-patterns` / `python-testing` - Python development
-- `django-patterns` / `django-security` / `django-tdd` - Django
-- `springboot-patterns` / `springboot-security` / `springboot-tdd` - Spring Boot
-- `cpp-testing` - C++ testing
+These are the orchestrator-level agents that manage the workflow:
 
-### Tools & Utilities
-- `browser-automation-agent` - Web browser automation
-- `context7-base-code-review` - Context7 integration
-- `humanizer` - Text humanization
-- `mev-solana-bot` - Solana MEV bot CLI
-- `mev-bot-development` - MEV bot development
-- `planning-with-files` - File-based planning
-- `using-web-scraping` - Web scraping
-- `web-search-api` - Web search utilities
+| Agent | Primary Model | Key Skills |
+|-------|---------------|------------|
+| oracle | GPT-5.4 (high) | context7-base-code-review, visual-explainer |
+| orchestrator | hunter-alpha | dispatching-parallel-agents, cartography, writing-plans, git-worktrees, verification |
+| fixer | GPT-5.3-codex (low) | systematic-debugging, context7-driven-dev |
+| designer | GPT-5.4 (medium) | visual-explainer, agent-browser |
+| librarian | healer-alpha (low) | context7-base-code-review, cartography, visual-explainer |
+| explorer | MiniMax M2.5 Free (Kilo, low) | cartography, context7-base-code-review, systematic-debugging |
 
-### Specialized
-- `clickhouse-io` - ClickHouse database
-- `postgres-patterns` - PostgreSQL patterns
-- `jpa-patterns` - JPA/Hibernate patterns
-- `java-coding-standards` - Java standards
-- `continuous-learning` / `continuous-learning-v2` - Learning workflows
-- `eval-harness` - Evaluation framework
-- `verification-loop` - Verification workflows
-- `strategic-compact` - Strategic planning
-- `iterative-retrieval` - Information retrieval
-- `nutrient-document-processing` - Document processing
-- `configure-ecc` - ECC configuration
-- `project-guidelines-example` - Project guidelines
+## Providers I'm Using
 
-## Agents (16 total)
+- **Kilo** — OpenCode's gateway to free models (MiniMax M2.5 Free)
+- **Cline** — Another free tier with MiniMax, GLM-5, and KAT Coder Pro
+- **Modal** — For GLM-5-FP8 (the 744B parameter architecture beast)
+- **OpenAI** — GPT-5.4, GPT-5.3-codex, GPT-5.3-codex-spark (business plan)
+- **OpenRouter** — Free access to hunter-alpha and healer-alpha
+- **Kimi** — Moonshot's kimi-k2.5 for orchestration fallback
 
-### Core Agents
-- `architect` - System architecture design
-- `planner` - Implementation planning
-- `code-reviewer` - Code review specialist
-- `security-reviewer` - Security analysis
-- `tdd-guide` - Test-driven development
+## Fallback Chains
 
-### Language Specialists
-- `go-reviewer` / `go-build-resolver` - Go specialist
-- `python-reviewer` - Python specialist
-- `rust-reviewer` / `rust-clippy-fmt-check-tester` - Rust specialist
-- `database-reviewer` - Database optimization
+When a model times out (15s) or fails, it tries the next one in line:
 
-### Specialized Agents
-- `build-error-resolver` - Build error fixing
-- `e2e-runner` - E2E testing
-- `doc-updater` - Documentation updates
-- `refactor-cleaner` - Dead code cleanup
-- `context7-sdk-compliance` - Context7 SDK compliance
+| Agent | Fallback Order |
+|-------|----------------|
+| oracle | GPT-5.4 → hunter-alpha → kimi-k2.5 → GPT-5.3-codex → healer-alpha → GPT-5.3-codex-spark |
+| orchestrator | hunter-alpha → kimi-k2.5 → GPT-5.4 → healer-alpha → GPT-5.3-codex → GPT-5.3-codex-spark |
+| fixer | GPT-5.3-codex → GPT-5.3-codex-spark → kimi-k2.5 → GPT-5.4 → hunter-alpha → healer-alpha |
+| designer | GPT-5.4 → healer-alpha → hunter-alpha → kimi-k2.5 → GPT-5.3-codex → GPT-5.3-codex-spark |
+| librarian | healer-alpha → GPT-5.4 → hunter-alpha → kimi-k2.5 → GPT-5.3-codex → GPT-5.3-codex-spark |
+| explorer | MiniMax M2.5 Free (Kilo) → GPT-5.3-codex → GPT-5.3-codex-spark → kimi-k2.5 → healer-alpha → hunter-alpha → GPT-5.4 |
+| refactor-cleaner | MiniMax M2.5 Free (Kilo) → MiniMax M2.5 Free (Cline) |
 
-## Installation
+Notice explorer and refactor-cleaner start with free models—that's intentional since they're used heavily for file searches and cleanup.
 
-1. Clone this repository:
+## Setup
+
+Drop these into your OpenCode config:
+
 ```bash
-git clone https://github.com/VenTheZone/favorite-opencode-setup.git
-cd favorite-opencode-setup
+cp opencode.json ~/.config/opencode/
+cp oh-my-opencode-slim.json ~/.config/opencode/
 ```
 
-2. Copy to your OpenCode config location:
-```bash
-# Option 1: Global config
-cp -r * ~/.config/opencode/
+Then add your API keys to `~/.local/share/opencode/auth.json`:
 
-# Option 2: Project-specific
-cp -r * /path/to/your/project/.opencode/
+```json
+{
+  "kilo": { "type": "api", "key": "your-kilo-key" },
+  "cline": { "type": "api", "key": "your-cline-key" },
+  "openai": { "type": "api", "key": "your-openai-key" },
+  "modal": { "type": "api", "key": "your-modal-key" },
+  "kimi": { "type": "api", "key": "your-kimi-key" },
+  "openrouter": { "type": "api", "key": "your-openrouter-key" }
+}
 ```
 
-3. Restart OpenCode to load the new configuration.
+### Getting Free API Keys
 
-## Usage
+- **Kilo**: Comes through OpenCode's gateway—no separate signup
+- **Cline**: Grab one at https://app.cline.bot
+- **OpenRouter**: https://openrouter.ai (hunter-alpha and healer-alpha don't cost anything)
 
-### Using Skills
-```bash
-# Load a skill
-skill: hacker
-
-# Or reference in conversation
-"Use the hack-scope skill to analyze this VDP"
-```
-
-### Using Agents
-```bash
-# Reference an agent with @
-@architect design a microservice architecture for...
-
-# Or use in Task tool
-Task(description: "Review this code", subagent_type: "code-reviewer")
-```
-
-## Customization
-
-### Adding New Skills
-1. Create a new folder in `skills/<skill-name>/`
-2. Add `SKILL.md` with frontmatter:
-```yaml
----
-name: skill-name
-description: What this skill does
----
-```
-3. Restart OpenCode
-
-### Adding New Agents
-1. Add agent definition to `prompts/agents/<agent-name>.txt`
-2. Reference in `opencode.json` or use directly
-
-## Configuration
-
-Main configuration in `opencode.json`:
-- Model settings
-- Agent definitions
-- Command mappings
-- Plugin configuration
-
-## Sources
-
-This configuration includes content from:
-- [Everything Claude Code (ECC)](https://github.com/affaan-m/everything-claude-code)
-- Custom skills (hacker, hack-scope)
-- Project-specific skills (mev-solana-bot, browser-automation-agent)
-- OpenCode community skills
-
-## License
-
-MIT
-
-## Contributing
-
-This is a personal configuration repository. Feel free to fork and customize for your own use.
+The paid ones (OpenAI, Modal, Kimi) need their own subscriptions.
