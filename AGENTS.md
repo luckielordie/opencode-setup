@@ -58,6 +58,10 @@ When implementing features or debugging issues that involve external libraries o
 - Already familiar libraries with known behavior
 - Very recent releases (< 1 week) that may not be indexed yet
 
+### Context7 Usage
+
+When you need to search docs, use `context7` tools.
+
 ### Context7 Based Integration
 
 When integrating third-party services or APIs (payments, auth, databases, etc.), use Context7 to ensure correct implementation.
