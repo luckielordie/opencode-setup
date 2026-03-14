@@ -75,14 +75,9 @@ For each design decision, document:
 
 ## Common Patterns
 
-### Frontend Patterns
-- **Component Composition**: Build complex UI from simple components
-- **Container/Presenter**: Separate data logic from presentation
-- **Custom Hooks**: Reusable stateful logic
-- **Context for Global State**: Avoid prop drilling
-- **Code Splitting**: Lazy load routes and heavy components
-
 ### Backend Patterns
+- **Package Design**: Build modular backends with cohesive packages
+- **Service Boundaries**: Define clear interfaces between bounded contexts
 - **Repository Pattern**: Abstract data access
 - **Service Layer**: Business logic separation
 - **Middleware Pattern**: Request/response processing

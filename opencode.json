@@ -100,7 +100,6 @@
         "edit": true,
         "bash": true
       }
-    }
     },
     "explore": {
       "disable": true
@@ -132,6 +131,24 @@
       "description": "Fix Go build errors",
       "template": "{file:./commands/go-build.md}\n\n$ARGUMENTS",
       "agent": "go-build-resolver",
+      "subtask": true
+    },
+    "code-review": {
+      "description": "Review code for quality, security, and maintainability",
+      "template": "{file:./commands/code-review.md}\n\n$ARGUMENTS",
+      "agent": "code-reviewer",
+      "subtask": true
+    },
+    "update-docs": {
+      "description": "Update documentation",
+      "template": "{file:./commands/update-docs.md}\n\n$ARGUMENTS",
+      "agent": "doc-updater",
+      "subtask": true
+    },
+    "update-codemaps": {
+      "description": "Update codemaps",
+      "template": "{file:./commands/update-codemaps.md}\n\n$ARGUMENTS",
+      "agent": "doc-updater",
       "subtask": true
     }
   },

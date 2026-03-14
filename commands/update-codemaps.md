@@ -49,23 +49,23 @@ docs/CODEMAPS/FILES.md
 
 **Purpose**: [Brief description]
 
-**Location**: `src/[path]/`
+**Location**: `internal/[path]/`
 
 **Key Files**:
-- `file1.ts` - [purpose]
-- `file2.ts` - [purpose]
+- `file1.go` - [purpose]
+- `file2.go` - [purpose]
 
 **Dependencies**:
-- [Module A]
-- [Module B]
+- [Package A]
+- [Package B]
 
 **Exports**:
-- `functionName()` - [description]
-- `ClassName` - [description]
+- `FunctionName()` - [description]
+- `TypeName` - [description]
 
 **Usage Example**:
-```typescript
-import { functionName } from '@/module'
+```go
+import "github.com/org/repo/internal/module"
 ```
 
 ## Generation Process

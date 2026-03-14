@@ -40,18 +40,17 @@ Include specific examples of how to fix issues.
 - Large functions (>50 lines)
 - Large files (>800 lines)
 - Deep nesting (>4 levels)
-- Missing error handling (try/catch)
-- console.log statements
+- Missing error handling (e.g. `if err != nil`)
+- print/log statements without structured logging (e.g. `fmt.Println` instead of `slog`)
 - Mutation patterns
 - Missing tests for new code
 
 ## Performance (MEDIUM)
 
 - Inefficient algorithms (O(n^2) when O(n log n) possible)
-- Unnecessary re-renders in React
-- Missing memoization
-- Large bundle sizes
-- Unoptimized images
+- High memory allocations in hot paths
+- Missing concurrency where appropriate (goroutines)
+- Unoptimized database access
 - Missing caching
 - N+1 queries
 
@@ -59,23 +58,22 @@ Include specific examples of how to fix issues.
 
 - Emoji usage in code/comments
 - TODO/FIXME without tickets
-- Missing JSDoc for public APIs
-- Accessibility issues (missing ARIA labels, poor contrast)
+- Missing GoDoc for public APIs
 - Poor variable naming (x, tmp, data)
 - Magic numbers without explanation
-- Inconsistent formatting
+- Inconsistent formatting (not running `go fmt`)
 
 ## Review Output Format
 
 For each issue:
 ```
 [CRITICAL] Hardcoded API key
-File: src/api/client.ts:42
+File: internal/api/client.go:42
 Issue: API key exposed in source code
 Fix: Move to environment variable
 
-const apiKey = "sk-abc123";  // Bad
-const apiKey = process.env.API_KEY;  // Good
+const apiKey = "sk-abc123"  // Bad
+apiKey := os.Getenv("API_KEY")  // Good
 ```
 
 ## Approval Criteria
@@ -97,7 +95,7 @@ Add your project-specific checks here. Examples:
 ## Post-Review Actions
 
 Since hooks are not available in OpenCode, remember to:
-- Run `prettier --write` on modified files after reviewing
-- Run `tsc --noEmit` to verify type safety
-- Check for console.log statements and remove them
-- Run tests to verify changes don't break functionality
+- Run `go fmt` on modified files after reviewing
+- Run `go build ./...` or `go vet` to verify type safety
+- Check for lingering debug statements and remove them
+- Run `go test` to verify changes don't break functionality
