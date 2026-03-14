@@ -399,7 +399,8 @@
         "baseURL": "https://opencode.ai/kilo/v1"
       },
       "models": {
-        "minimax/minimax-m2.5-free": {
+        "minimax-m2.5-free": {
+          "id": "minimax/minimax-m2.5",
           "name": "MiniMax M2.5 Free",
           "limit": {
             "context": 1000000,
@@ -500,14 +501,14 @@
         "apiKey": "{file:~/.config/opencode/openrouter.key}"
       },
       "models": {
-        "openrouter/hunter-alpha": {
+        "hunter-alpha": {
           "name": "Hunter Alpha",
           "limit": {
             "context": 1050000,
             "output": 16384
           }
         },
-        "openrouter/healer-alpha": {
+        "healer-alpha": {
           "name": "Healer Alpha",
           "limit": {
             "context": 262000,
